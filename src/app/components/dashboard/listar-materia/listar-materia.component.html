@@ -52,19 +52,3 @@
   [pageIndex]="paginaActual" (page)="paginar($event)" showFirstLastButtons>
 </mat-paginator>
 
-<table>
-    <thead>
-      <tr>
-        <td>ID</td>
-        <td>n</td>
-        <td>fd</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let a of lista">
-        <th>{{a.idMateria}}</th>
-        <th>{{a.nombre}}</th>
-        <th>{{a.contenido}}</th>
-      </tr>
-    </tbody>
-</table>
