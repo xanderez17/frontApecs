@@ -50,7 +50,7 @@ export class MateriaService {
   //CREAR MATERIA
   crear(materia: Materia): Observable<Materia> {
     return this.http.post<Materia>(`${bd_url}/`, materia).pipe(
-      map((response: any) => response.carrera as Materia),
+      map((response: any) => response.materia as Materia),
       catchError((e) => {
         if (e.status == 400) {
           return throwError(e);
