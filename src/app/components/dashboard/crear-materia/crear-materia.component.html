@@ -1,0 +1,32 @@
+<div class="container">
+  <mat-toolbar>
+    <span>Crear materias</span>
+  </mat-toolbar>
+
+  <mat-card style="margin-top: 10px">Simple card</mat-card>
+
+  <form [formGroup]="form" (submit)="agregarMatrias()">
+    <mat-grid-list cols="4" rowHeight="70px">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field class="ancho">
+          <mat-label>Nombre</mat-label>
+          <input matInput autocomplete="off" formControlName="nombre">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="3" [rowspan]="1">
+        <mat-form-field>
+          <mat-label>Contenido</mat-label>
+          <input matInput autocomplete="off" formControlName="contenido">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <button mat-raised-button color="primary" routerLink="/dashboard/listar-materias" style="margin-right: 20px;">   Volver</button>
+      <button type="submit" [disabled]="form.invalid" mat-raised-button  color="accent" routerLink="/dashboard/crear-materias">   Guardar
+      </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+   
+    
+  </form>
+</div>

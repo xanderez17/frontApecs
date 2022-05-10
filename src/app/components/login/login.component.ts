@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {timeout} from "rxjs/operators";
 import {Router} from "@angular/router";
 
-import {MateriaService} from "../../servicios/materia.service";
-import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {UsuarioService} from "../../services/usuario.service";
 import {Usuario} from "../../models/Usuario";
 

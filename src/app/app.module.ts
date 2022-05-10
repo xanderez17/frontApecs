@@ -12,7 +12,6 @@ import { LoginComponent } from './components/login/login.component';
 
 import {SharedModule} from "./components/shared/shared.module";
 
-import { HttpClient } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSliderModule} from "@angular/material/slider";
@@ -25,7 +24,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+
   ],
   imports: [
     BrowserModule,

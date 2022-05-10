@@ -8,6 +8,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ReportesComponent } from './reportes/reportes.component';
+import { ListarMateriaComponent } from './listar-materia/listar-materia.component';
+import { CrearMateriaComponent } from './crear-materia/crear-materia.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { ReportesComponent } from './reportes/reportes.component';
     InicioComponent,
     NavbarComponent,
     UsuariosComponent,
-    ReportesComponent
+    ReportesComponent,
+    CrearMateriaComponent,
+    ListarMateriaComponent
   ],
   imports: [
     CommonModule,
