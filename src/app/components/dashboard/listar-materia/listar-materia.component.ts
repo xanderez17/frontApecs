@@ -109,7 +109,7 @@ export class ListarMateriaComponent implements OnInit {
 
 
 
-    console.log(materia.id)
+    console.log(materia.idMateria)
 console.log(materia.nombre)
 console.log(materia.contenido)
 
@@ -127,7 +127,7 @@ console.log(materia.contenido)
       })
       .then((result) => {
         if (result.value) {
-          this.materiaServicio.eliminar(materia.id).subscribe((resp) => {
+          this.materiaServicio.eliminar(materia.idMateria).subscribe((resp) => {
             this.getMateriasPage(
               this.paginaActual.toString(),
               this.totalPorPagina.toString(),
@@ -146,7 +146,7 @@ console.log(materia.contenido)
     if (d1 === undefined && d2 === undefined) {
       return true;
     }
-    return d1 == null || d2 == null ? false : d1.id === d2.id;
+    return d1 == null || d2 == null ? false : d1.idMateria === d2.idMateria;
   }
 }
 

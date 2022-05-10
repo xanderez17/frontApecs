@@ -1,5 +1,5 @@
 export class Materia {
-  id: any;
+  idMateria: any;
   nombre: any;
   contenido: any;
 }

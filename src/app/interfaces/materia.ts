@@ -1,5 +1,5 @@
 export interface Materia {
-  id: number;
+  idMateria: long;
   nombre: string;
   contenido: string;
 }
