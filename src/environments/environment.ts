@@ -3,8 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  bd_url: "http://localhost:9898/api"
+  production: false
 };
 
 /*

@@ -1,7 +1,7 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Materia } from 'src/app/models/Materia';
 import { MateriaService } from 'src/app/services/materia.service';
 import Swal from 'sweetalert2';
@@ -12,11 +12,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crear-materia.component.css'],
 })
 export class CrearMateriaComponent implements OnInit {
-  public materia = new Materia();
+  materia: Materia = new Materia();
+  idEdit!: string | null;
 
   form: FormGroup;
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private materiaService: MateriaService
@@ -28,9 +30,10 @@ export class CrearMateriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({idMateria}) =>
-      this.cargarMateria(idMateria)
-    );
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.idEdit = params.get('id');
+    });
+    this.cargarMateria(Number(this.idEdit));
   }
   cargarMateria(id: number) {
     if (!id) {
@@ -44,36 +47,32 @@ export class CrearMateriaComponent implements OnInit {
     });
   }
   agregarMaterias() {
-    if (this.materia.idMateria) {
-      this.materia.nombre = this.form.value.nombre;
-      this.materia.contenido = this.form.value.contenido;
-
+    if (this.idEdit) {
       this.materiaService
-        .editar(this.materia, this.materia.idMateria)
+        .editar(this.materia, Number(this.idEdit))
         .subscribe((ma) => {
-          Swal.fire(
-            'Actualizar Materia',
-            `¡${ma.nombre} actualizada con exito!`,
-            'success'
-          );
+          this._snackBar.open('Materia editada!', '', {
+            duration: 2500,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
           this.irListaMaterias();
         });
+    } else {
+      this.materiaService.crear(this.materia).subscribe((m) => {
+        this._snackBar.open('Materia creada!', '', {
+          duration: 2500,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+        this.irListaMaterias();
+      });
+
+      this.irListaMaterias();
     }
-    this.materia.nombre = this.form.value.nombre;
-    this.materia.contenido = this.form.value.contenido;
-    this.materiaService.crear(this.materia).subscribe((m) => {
-      Swal.fire(
-        'Nueva materia',
-        `¡ Materia ${this.materia.nombre} creada con exito!`,
-        'success'
-      );
-    });
-    this.irListaMaterias();
   }
 
   irListaMaterias() {
-    console.log(this.materia.nombre);
-
     this.router.navigateByUrl('/dashboard/listar-materias');
   }
 }
