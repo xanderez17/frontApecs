@@ -33,11 +33,13 @@
 
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td mat-cell *matCellDef="let materia">
-            <a class="mr-2" mat-button color="primary" [routerLink]="['../crear-materias', materia.id]" [state]="{id: materia.id}" data-toggle="tooltip" matTooltip="Editar">
+        <td mat-cell *matCellDef="let element">
+            <a class="mr-2" mat-button color="primary"
+            [routerLink]="['/dashboard/crear-materias', element.idMateria]"
+            data-toggle="tooltip" matTooltip="Editar">
                 <mat-icon aria-hidden="true" aria-label="Example home icon">mode_edit</mat-icon>
             </a>
-            <a class="mr-2" mat-button color="warn" data-toggle="tooltip"  (click)="eliminarMateria(materia)" matTooltip="Eliminar">
+            <a class="mr-2" mat-button color="warn" data-toggle="tooltip"  (click)="eliminarMateria(element)" matTooltip="Eliminar">
                 <mat-icon aria-hidden="true" aria-label="Example home icon">delete</mat-icon>
             </a>
         </td>

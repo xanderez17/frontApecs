@@ -62,8 +62,8 @@ export class MateriaService {
   }
 
   //EDITAR MATERIA
-  editar(materia: Materia, id: number): Observable<Materia> {
-    return this.http.put<Materia>(`${bd_url}/${id}`, materia).pipe(
+  editar(materia: Materia, idMateria: number): Observable<Materia> {
+    return this.http.put<Materia>(`${bd_url}/${idMateria}`, materia).pipe(
       map((response: any) => response.materia as Materia),
       catchError((e) => {
         if (e.status == 400) {

@@ -10,6 +10,7 @@ const routes: Routes = [
   {path: 'dashboard', loadChildren:()=> import('./components/dashboard/dashboard.module').then(x => x.DashboardModule) },
   {path: 'dashboard/listar-materias', component:ListarMateriaComponent},
   {path: 'dashboard/crear-materias', component:CrearMateriaComponent},
+  {path: 'dashboard/crear-materias/:id', component:CrearMateriaComponent},
 
   {path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
