@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Materia } from 'src/app/models/Materia';
-import { MateriaService } from 'src/app/services/materia.service';
-import Swal from 'sweetalert2';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {Aula} from "../../../models/Aula";
+import {AulasService} from "../../../services/aulas.service";
 
 @Component({
-  selector: 'app-crear-materia',
-  templateUrl: './crear-materia.component.html',
-  styleUrls: ['./crear-materia.component.css'],
+  selector: 'app-crear-aulas',
+  templateUrl: './crear-aulas.component.html',
+  styleUrls: ['./crear-aulas.component.css']
 })
-export class CrearMateriaComponent implements OnInit {
-  lista: Materia = new Materia();
+export class CrearAulasComponent implements OnInit {
+  lista: Aula = new Aula();
   idEdit!: string | null;
 
   form: FormGroup;
@@ -21,7 +20,7 @@ export class CrearMateriaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private materiaService: MateriaService
+    private aulasService: AulasService
   ) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
@@ -33,13 +32,13 @@ export class CrearMateriaComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.idEdit = params.get('id');
     });
-    this.cargarMateria(Number(this.idEdit));
+    this.cargarAula(Number(this.idEdit));
   }
-  cargarMateria(id: number) {
+  cargarAula(id: number) {
     if (!id) {
       return;
     }
-    this.materiaService.getById(id).subscribe((ma) => {
+    this.aulasService.getById(id).subscribe((ma) => {
       if (!ma) {
         return this.irLista();
       }
@@ -48,10 +47,10 @@ export class CrearMateriaComponent implements OnInit {
   }
   agregar() {
     if (this.idEdit) {
-      this.materiaService
+      this.aulasService
         .editar(this.lista, Number(this.idEdit))
         .subscribe((ma) => {
-          this._snackBar.open('Materia editada!', '', {
+          this._snackBar.open('Aula editada!', '', {
             duration: 2500,
             horizontalPosition: 'center',
             verticalPosition: 'bottom',
@@ -59,8 +58,8 @@ export class CrearMateriaComponent implements OnInit {
           this.irLista();
         });
     } else {
-      this.materiaService.crear(this.lista).subscribe((m) => {
-        this._snackBar.open('Materia creada!', '', {
+      this.aulasService.crear(this.lista).subscribe((m) => {
+        this._snackBar.open('Aula creada!', '', {
           duration: 2500,
           horizontalPosition: 'center',
           verticalPosition: 'bottom',

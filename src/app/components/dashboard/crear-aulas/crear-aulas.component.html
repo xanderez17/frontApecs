@@ -1,0 +1,45 @@
+<div class="container">
+  <mat-toolbar>
+    <span>Crear materias</span>
+  </mat-toolbar>
+
+  <mat-card style="margin-top: 10px">Simple card</mat-card>
+
+  <form [formGroup]="form">
+    <mat-grid-list cols="4" rowHeight="70px">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field class="ancho">
+          <mat-label>Nombre</mat-label>
+          <input matInput autocomplete="off" formControlName="nombre" [(ngModel)]="lista.nombre">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field>
+          <mat-label>Capacidad</mat-label>
+          <input matInput autocomplete="off" formControlName="contenido" [(ngModel)]="lista.capacidad">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field>
+          <mat-label>Modalidad</mat-label>
+          <input matInput autocomplete="off" formControlName="contenido" [(ngModel)]="lista.modalidad">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field>
+          <mat-label>Ubicacion</mat-label>
+          <input matInput autocomplete="off" formControlName="contenido" [(ngModel)]="lista.ubicacion">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <button mat-raised-button color="primary" routerLink="/dashboard/listar-aulas" style="margin-right: 20px;">   Volver</button>
+        <button type="submit" [disabled]="form.invalid" mat-raised-button  color="accent" routerLink="/dashboard/crear-aulas" (click)="agregar()">   Guardar
+        </button>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+
+
+  </form>
+</div>

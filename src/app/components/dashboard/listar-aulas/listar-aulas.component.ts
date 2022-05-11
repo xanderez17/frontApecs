@@ -1,18 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Materia } from 'src/app/models/Materia';
-import { MateriaService } from 'src/app/services/materia.service';
-import Swal from 'sweetalert2';
-@Component({
-  selector: 'app-listar-materia',
-  templateUrl: './listar-materia.component.html',
-  styleUrls: ['./listar-materia.component.css'],
-})
-export class ListarMateriaComponent implements OnInit {
-  public lista: Materia[] = [];
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import Swal from "sweetalert2";
+import {Aula} from "../../../models/Aula";
+import {AulasService} from "../../../services/aulas.service";
 
-  displayedColumns: string[] = ['id', 'nombre', 'contenido', 'acciones'];
+@Component({
+  selector: 'app-listar-aulas',
+  templateUrl: './listar-aulas.component.html',
+  styleUrls: ['./listar-aulas.component.css']
+})
+export class ListarAulasComponent implements OnInit {
+  public lista: Aula[] = [];
+
+  displayedColumns: string[] = ['id', 'nombre','capacidad','modaliad','ubicacion', 'acciones'];
 
   public totalRegistros = 0;
   public paginaActual = 0;
@@ -20,27 +21,27 @@ export class ListarMateriaComponent implements OnInit {
 
   public pageSizeOptions: number[] = [5, 10, 20, 50, 100];
 
-  dataSource = new MatTableDataSource<Materia>();
+  dataSource = new MatTableDataSource<Aula>();
 
   @ViewChild(MatPaginator, { static: true }) paginador!: MatPaginator;
 
   public cargando: boolean = true;
-
   public busqueda: string = '';
   //lista: Array<any> = [];
 
-  constructor(private materiaServicio: MateriaService) {
-    materiaServicio.getAll().subscribe((x: any) => {
+  constructor(private aulasService: AulasService) {
+    aulasService.getAll().subscribe((x: any) => {
       this.lista = x;
     });
   }
 
   ngOnInit() {
-    this.getDatosPage(
+    this.getPage(
       this.paginaActual.toString(),
       this.totalPorPagina.toString(),
       this.busqueda
     );
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -50,19 +51,19 @@ export class ListarMateriaComponent implements OnInit {
   public paginar(event: PageEvent): void {
     this.paginaActual = event.pageIndex;
     this.totalPorPagina = event.pageSize;
-    this.getDatosPage(
+    this.getPage(
       this.paginaActual.toString(),
       this.totalPorPagina.toString(),
       this.busqueda
     );
   }
 
-  private getDatosPage(page: string, size: string, busqueda: string) {
+  private getPage(page: string, size: string, busqueda: string) {
     this.cargando = true;
-    this.materiaServicio
+    this.aulasService
       .getDatosPage(page, size, busqueda)
       .subscribe((p) => {
-        this.lista = p.content as Materia[];
+        this.lista = p.content as Aula[];
         this.totalRegistros = p.totalElements as number;
         this.paginador._intl.itemsPerPageLabel = 'Registros por página:';
         this.paginador._intl.nextPageLabel = 'Siguiente';
@@ -74,7 +75,7 @@ export class ListarMateriaComponent implements OnInit {
   }
   buscar(txtBusqueda: string) {
     if (txtBusqueda.length > 0) {
-      this.getDatosPage(
+      this.getPage(
         this.paginaActual.toString(),
         this.totalPorPagina.toString(),
         txtBusqueda
@@ -84,7 +85,7 @@ export class ListarMateriaComponent implements OnInit {
 
   cargarDatosDefault(txtBusqueda: string) {
     if (txtBusqueda.length === 0) {
-      return this.getDatosPage(
+      return this.getPage(
         this.paginaActual.toString(),
         this.totalPorPagina.toString(),
         this.busqueda
@@ -92,7 +93,7 @@ export class ListarMateriaComponent implements OnInit {
     }
   }
 
-  eliminar(materia: Materia) {
+  eliminar(aula: Aula) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -104,7 +105,7 @@ export class ListarMateriaComponent implements OnInit {
     swalWithBootstrapButtons
       .fire({
         title: '¿Estas  seguro?',
-        text: `¿Seguro que quieres eliminar la materia ${materia.nombre} ?`,
+        text: `¿Seguro que quieres eliminar el aula ${aula.nombre} ?`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, eliminar!',
@@ -113,15 +114,15 @@ export class ListarMateriaComponent implements OnInit {
       })
       .then((result) => {
         if (result.value) {
-          this.materiaServicio.eliminar(materia.idMateria).subscribe((resp) => {
-            this.getDatosPage(
+          this.aulasService.eliminar(aula.idAula).subscribe((resp) => {
+            this.getPage(
               this.paginaActual.toString(),
               this.totalPorPagina.toString(),
               this.busqueda
             );
             swalWithBootstrapButtons.fire(
               'Eliminada!',
-              `La materia ${materia.nombre} ha  sido eliminada correctamente!`,
+              `El  ${aula.nombre} ha  sido eliminada correctamente!`,
               'success'
             );
           });
@@ -130,3 +131,4 @@ export class ListarMateriaComponent implements OnInit {
   }
 
 }
+

@@ -10,18 +10,18 @@
       <mat-grid-tile [colspan]="1" [rowspan]="1">
         <mat-form-field class="ancho">
           <mat-label>Nombre</mat-label>
-          <input matInput autocomplete="off" formControlName="nombre" [(ngModel)]="materia.nombre">
+          <input matInput autocomplete="off" formControlName="nombre" [(ngModel)]="lista.nombre">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="3" [rowspan]="1">
         <mat-form-field>
           <mat-label>Contenido</mat-label>
-          <input matInput autocomplete="off" formControlName="contenido" [(ngModel)]="materia.contenido">
+          <input matInput autocomplete="off" formControlName="contenido" [(ngModel)]="lista.contenido">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="1">
         <button mat-raised-button color="primary" routerLink="/dashboard/listar-materias" style="margin-right: 20px;">   Volver</button>
-      <button type="submit" [disabled]="form.invalid" mat-raised-button  color="accent" routerLink="/dashboard/crear-materias" (click)="agregarMaterias()">   Guardar
+      <button type="submit" [disabled]="form.invalid" mat-raised-button  color="accent" routerLink="/dashboard/crear-aulas" (click)="agregar()">   Guardar
       </button>
       </mat-grid-tile>
     </mat-grid-list>

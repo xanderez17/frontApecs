@@ -12,14 +12,14 @@ import Swal from 'sweetalert2';
 export class MateriaService {
 
   constructor(private http: HttpClient) {}
-  //OBTENER UNA MATERIA POR ID
-  getMateriaById(id: number): Observable<Materia> {
+  //Obtener materia por id
+  getById(id: number): Observable<Materia> {
     return this.http.get<Materia>(`http://localhost:9898/api/materia/listar-materia/${id}`);
   }
- //CREAR MATERIA
+ //Ccrear materia
  crear(materia: Materia): Observable<Materia> {
   return this.http.post<Materia>(`http://localhost:9898/api/materia/`, materia).pipe(
-    map((response: any) => response.carrera as Materia),
+    map((response: any) => response.materia as Materia),
     catchError((e) => {
       if (e.status == 400) {
         return throwError(e);
@@ -43,7 +43,7 @@ editar(materia: Materia, idMateria: number): Observable<Materia> {
     })
   );
 }
-//ELIMINAR UNA MATERIA
+//Eeliminar materia
 eliminar(id: number): Observable<Materia> {
   return this.http.delete<Materia>(`http://localhost:9898/api/materia/eliminarMateria/${id}`).pipe(
     catchError((e) => {
@@ -52,14 +52,14 @@ eliminar(id: number): Observable<Materia> {
     })
   );
 }
-  //MATERIAS SIN PAGINACION
-  getMaterias(): Observable<Materia[]> {
+  //Lista materias sin paginacion
+  getAll(): Observable<Materia[]> {
     return this.http.get<Materia[]>(`http://localhost:9898/api/materia/listarMaterias`);
   }
 
 
-  //PAGINACION DE MATERIA
-  getMateriasPage(
+  //matrias con paginacion
+  getDatosPage(
     page: string,
     size: string,
     busqueda: string
@@ -82,5 +82,5 @@ eliminar(id: number): Observable<Materia> {
         })
       );
   }
- 
+
 }

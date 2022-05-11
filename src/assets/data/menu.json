@@ -8,6 +8,14 @@
     "redirect": "/dashboard/usuarios"
   },
   {
+    "nombre": "Materias",
+    "redirect": "/dashboard/listar-materias"
+  },
+  {
+    "nombre": "Aulas",
+    "redirect": "/dashboard/listar-aulas"
+  },
+  {
     "nombre": "Reportes",
     "redirect": "/dashboard/reportes"
   }

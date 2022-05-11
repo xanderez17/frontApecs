@@ -10,6 +10,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { ListarMateriaComponent } from './listar-materia/listar-materia.component';
 import { CrearMateriaComponent } from './crear-materia/crear-materia.component';
+import { ListarAulasComponent } from './listar-aulas/listar-aulas.component';
+import { CrearAulasComponent } from './crear-aulas/crear-aulas.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { CrearMateriaComponent } from './crear-materia/crear-materia.component';
     UsuariosComponent,
     ReportesComponent,
     CrearMateriaComponent,
-    ListarMateriaComponent
+    ListarMateriaComponent,
+    ListarAulasComponent,
+    CrearAulasComponent
   ],
   imports: [
     CommonModule,
