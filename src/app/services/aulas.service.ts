@@ -21,7 +21,7 @@ export class AulasService {
   }
   //Crear Aula
   crear(aula: Aula): Observable<Aula> {
-    return this.http.post<Aula>(`http://localhost:9898/api/aula/`, aula).pipe(
+    return this.http.post<Aula>(`http://localhost:9898/api/aula/crearAula`,aula).pipe(
       map((response: any) => response.aula as Aula),
       catchError((e) => {
         if (e.status == 400) {

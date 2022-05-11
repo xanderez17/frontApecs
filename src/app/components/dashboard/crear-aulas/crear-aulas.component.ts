@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {Aula} from "../../../models/Aula";
-import {AulasService} from "../../../services/aulas.service";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Aula } from '../../../models/Aula';
+import { AulasService } from '../../../services/aulas.service';
 
 @Component({
   selector: 'app-crear-aulas',
   templateUrl: './crear-aulas.component.html',
-  styleUrls: ['./crear-aulas.component.css']
+  styleUrls: ['./crear-aulas.component.css'],
 })
 export class CrearAulasComponent implements OnInit {
   lista: Aula = new Aula();
