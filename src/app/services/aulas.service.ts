@@ -48,7 +48,7 @@ export class AulasService {
   }
 //Eeliminar aula
   eliminar(id: number): Observable<Aula> {
-    return this.http.delete<Aula>(`http://localhost:9898/api/aula/eliminarAula/${id}`).pipe(
+    return this.http.delete<Aula>(`http://localhost:9898/api/aula/elminarAula/${id}`).pipe(
       catchError((e) => {
         Swal.fire(e.error.mensaje, e.error.error, "error");
         return throwError(e);

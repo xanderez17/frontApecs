@@ -24,7 +24,9 @@ export class CrearAulasComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      contenido: ['', Validators.required],
+      capacidad: ['', Validators.required],
+      modalidad: ['', Validators.required],
+      ubicacion: ['', Validators.required],
     });
   }
 
@@ -72,6 +74,6 @@ export class CrearAulasComponent implements OnInit {
   }
 
   irLista() {
-    this.router.navigateByUrl('/dashboard/listar-materias');
+    this.router.navigateByUrl('/dashboard/listar-aulas');
   }
 }
