@@ -1,10 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { Aula } from "../../../models/Aula";
+import { AulasService } from "../../../services/aulas.service";
 import Swal from "sweetalert2";
-import {Aula} from "../../../models/Aula";
-import {AulasService} from "../../../services/aulas.service";
-
 @Component({
   selector: 'app-listar-aulas',
   templateUrl: './listar-aulas.component.html',
@@ -13,52 +11,43 @@ import {AulasService} from "../../../services/aulas.service";
 export class ListarAulasComponent implements OnInit {
   public lista: Aula[] = [];
 
-  displayedColumns: string[] = ['id', 'nombre','capacidad','modaliad','ubicacion', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'capacidad', 'modaliad', 'ubicacion', 'acciones'];
 
   public totalRegistros = 0;
   public paginaActual = 0;
-  public totalPorPagina = 5;
-
-  public pageSizeOptions: number[] = [5, 10, 20, 50, 100];
-
-  dataSource = new MatTableDataSource<Aula>();
+  public totalPorPagina = 10;
+  public pageSizeOptions: number[] = [10, 50, 100];
 
   @ViewChild(MatPaginator, { static: true }) paginador!: MatPaginator;
 
   public cargando: boolean = true;
   public busqueda: string = '';
-  //lista: Array<any> = [];
 
   constructor(private aulasService: AulasService) {
-    aulasService.getAll().subscribe((x: any) => {
-      this.lista = x;
-    });
+
   }
 
   ngOnInit() {
-    this.getPage(
+    this.getDatosPage(
       this.paginaActual.toString(),
       this.totalPorPagina.toString(),
       this.busqueda
     );
 
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+
 
   public paginar(event: PageEvent): void {
     this.paginaActual = event.pageIndex;
     this.totalPorPagina = event.pageSize;
-    this.getPage(
+    this.getDatosPage(
       this.paginaActual.toString(),
       this.totalPorPagina.toString(),
       this.busqueda
     );
   }
 
-  private getPage(page: string, size: string, busqueda: string) {
+   getDatosPage(page: string, size: string, busqueda: string) {
     this.cargando = true;
     this.aulasService
       .getDatosPage(page, size, busqueda)
@@ -73,9 +62,10 @@ export class ListarAulasComponent implements OnInit {
         this.cargando = false;
       });
   }
+
   buscar(txtBusqueda: string) {
     if (txtBusqueda.length > 0) {
-      this.getPage(
+      this.getDatosPage(
         this.paginaActual.toString(),
         this.totalPorPagina.toString(),
         txtBusqueda
@@ -85,7 +75,7 @@ export class ListarAulasComponent implements OnInit {
 
   cargarDatosDefault(txtBusqueda: string) {
     if (txtBusqueda.length === 0) {
-      return this.getPage(
+      return this.getDatosPage(
         this.paginaActual.toString(),
         this.totalPorPagina.toString(),
         this.busqueda
@@ -115,7 +105,7 @@ export class ListarAulasComponent implements OnInit {
       .then((result) => {
         if (result.value) {
           this.aulasService.eliminar(aula.idAula).subscribe((resp) => {
-            this.getPage(
+            this.getDatosPage(
               this.paginaActual.toString(),
               this.totalPorPagina.toString(),
               this.busqueda

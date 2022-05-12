@@ -10,10 +10,15 @@
     </button>
   </div>
   <mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-  </mat-form-field>
 
+    <mat-label>Buscar por nombre</mat-label>
+    <input matInput  [(ngModel)]="busqueda" #txtBusqueda (keyup)="buscar(txtBusqueda.value)" (keyup)="cargarDatosDefault(txtBusqueda.value)"  autocomplete="off" #input>
+    <div id="example23_filter" class="dataTables_filter">
+
+
+    </div>
+
+  </mat-form-field>
   <div class="mat-elevation-z8" >
     <table mat-table [dataSource]="lista" matSort>
 

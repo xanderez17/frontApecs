@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Materia } from 'src/app/models/Materia';
 import { MateriaService } from 'src/app/services/materia.service';
 import Swal from 'sweetalert2';
@@ -16,23 +15,16 @@ export class ListarMateriaComponent implements OnInit {
 
   public totalRegistros = 0;
   public paginaActual = 0;
-  public totalPorPagina = 5;
-
-  public pageSizeOptions: number[] = [5, 10, 20, 50, 100];
-
-  dataSource = new MatTableDataSource<Materia>();
+  public totalPorPagina = 10;
+  public pageSizeOptions: number[] = [10, 50, 100];
 
   @ViewChild(MatPaginator, { static: true }) paginador!: MatPaginator;
 
   public cargando: boolean = true;
-
   public busqueda: string = '';
-  //lista: Array<any> = [];
 
   constructor(private materiaServicio: MateriaService) {
-    materiaServicio.getAll().subscribe((x: any) => {
-      this.lista = x;
-    });
+
   }
 
   ngOnInit() {
@@ -42,10 +34,7 @@ export class ListarMateriaComponent implements OnInit {
       this.busqueda
     );
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+
 
   public paginar(event: PageEvent): void {
     this.paginaActual = event.pageIndex;
@@ -57,7 +46,7 @@ export class ListarMateriaComponent implements OnInit {
     );
   }
 
-  private getDatosPage(page: string, size: string, busqueda: string) {
+  getDatosPage(page: string, size: string, busqueda: string) {
     this.cargando = true;
     this.materiaServicio
       .getDatosPage(page, size, busqueda)
@@ -72,6 +61,7 @@ export class ListarMateriaComponent implements OnInit {
         this.cargando = false;
       });
   }
+
   buscar(txtBusqueda: string) {
     if (txtBusqueda.length > 0) {
       this.getDatosPage(
@@ -83,7 +73,7 @@ export class ListarMateriaComponent implements OnInit {
   }
 
   cargarDatosDefault(txtBusqueda: string) {
-    if (txtBusqueda.length === 0) {
+    if (txtBusqueda.length == 0) {
       return this.getDatosPage(
         this.paginaActual.toString(),
         this.totalPorPagina.toString(),
