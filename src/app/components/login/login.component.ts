@@ -42,8 +42,11 @@ export class LoginComponent implements OnInit {
           this.cont=1;
         }
       }
+
+
       if (this.cont==1){
-        this.router.navigateByUrl('/dashboard')
+        this.fakeLoading();
+
       }else{
         this._snackBar.open('Usuario o Contraseña Incorrectos!', '', {
           duration: 2000,
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit {
     this.loading=true;
     setTimeout(()=>{
       //Redireccionar al Dashboard
-      this.router.navigate(['dashboard']);
+      this.router.navigateByUrl('/dashboard')
     }, 1500);
   }
 }
